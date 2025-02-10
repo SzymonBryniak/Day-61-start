@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect
 from flask_wtf import FlaskForm
-from wtforms import StringField
+from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired
 
 
@@ -21,13 +21,12 @@ This will install the packages from requirements.txt for this project.
 class MyForm(FlaskForm):
     name = StringField('name', validators=[DataRequired()])
     email = StringField('email', validators=[DataRequired()])
-    password = StringField('password', validators=[DataRequired()])
-
+    password = PasswordField('password', validators=[DataRequired()])
+    submit = SubmitField(label="Log In")
 
 app = Flask(__name__)
 
 app.secret_key = "some secret string"
-
 
 
 # form = FlaskForm(meta={'csrf': True})
