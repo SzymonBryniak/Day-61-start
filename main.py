@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms import StringField, PasswordField, SubmitField 
+from wtforms.validators import DataRequired, Email
 
 
 '''
@@ -20,7 +20,8 @@ This will install the packages from requirements.txt for this project.
 
 class MyForm(FlaskForm):
     name = StringField('name', validators=[DataRequired()])
-    email = StringField('email', validators=[DataRequired()])
+    email = StringField('email', validators=[DataRequired(message=' Enter data'), Email(message=('That\'s not a valid email address.'))
+                                             ])
     password = PasswordField('password', validators=[DataRequired()])
     submit = SubmitField(label="Log In")
 
@@ -38,6 +39,7 @@ def home():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     form = MyForm()
+    form.validate_on_submit()
     return render_template("login.html", form=form)
 
 
