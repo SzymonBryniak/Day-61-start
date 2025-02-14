@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField 
-from wtforms.validators import DataRequired, Email, Length
+from wtforms.validators import DataRequired, Email, Length, ValidationError
 
 
 '''
@@ -17,6 +17,15 @@ pip3 install -r requirements.txt
 This will install the packages from requirements.txt for this project.
 '''
 
+def is_email(form, field):
+    if field.data != "admin@email.com": 
+        raise ValidationError('Must be 42')
+
+
+def is_password(form, field):
+    if field.data != "12345678": 
+        raise ValidationError('Must be 42')
+
 
 class MyForm(FlaskForm):
     name = StringField('name', validators=[DataRequired()])
@@ -31,6 +40,8 @@ app = Flask(__name__)
 app.secret_key = "some secret string"
 
 
+
+
 # form = FlaskForm(meta={'csrf': True})
 @app.route("/")
 def home():
@@ -40,7 +51,8 @@ def home():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     form = MyForm()
-    form.validate_on_submit()
+    if form.validate_on_submit():
+        print(form.email.data)
     return render_template("login.html", form=form)
 
 
