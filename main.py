@@ -17,24 +17,15 @@ pip3 install -r requirements.txt
 This will install the packages from requirements.txt for this project.
 '''
 
-
-
-success = [0, 0]
-
-
 def is_email(form, field):
     if field.data != "admin@email.com":
         raise ValidationError('Must be admin@email.com')
-    else:
-        success[1] = 1
 
 
 def is_password(form, field):
     if field.data != "12345678":
         print(' Must be 1233', field.data)
         raise ValidationError('Must be 12345678')
-    else:
-        success[0] = 1
 
 
 class MyForm(FlaskForm):
@@ -46,7 +37,7 @@ class MyForm(FlaskForm):
 app = Flask(__name__)
 app.secret_key = "some secret string"
 
-# form = FlaskForm(meta={'csrf': True})
+
 @app.route("/")
 def home():
     return render_template('index.html')
@@ -67,16 +58,5 @@ def login():
     return render_template("login.html", form=form)
 
 
-@app.route('/submit', methods=['GET', 'POST'])
-def submit():
-    form = MyForm()
-    if form.validate_on_submit():
-        return redirect('/success')
-    return render_template('submit.html', form=form)
-
-
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-# MyForm()
