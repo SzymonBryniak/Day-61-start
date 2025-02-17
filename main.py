@@ -18,14 +18,14 @@ This will install the packages from requirements.txt for this project.
 '''
 
 def is_email(form, field):
-    if field.data != "admin@email.com":
-        raise ValidationError('Must be admin@email.com')
+    if field.data != "ad@email.com":
+        raise ValidationError('Must be ad@email.com')
 
 
 def is_password(form, field):
-    if field.data != "12345678":
+    if field.data != "1234":
         print(' Must be 1233', field.data)
-        raise ValidationError('Must be 12345678')
+        raise ValidationError('Must be 1234')
 
 
 class MyForm(FlaskForm):
