@@ -58,7 +58,7 @@ def login():
         return render_template('denied.html')
     
     
-    return render_template("login.html", form=form)
+    return render_template("login2.html", form=form)
 
 
 if __name__ == '__main__':
